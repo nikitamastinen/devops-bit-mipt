@@ -1,0 +1,13 @@
+- name: "run app"
+  hosts: localhost
+  gather_facts: False
+
+  tasks:
+    - name: install make
+      apk:
+        name: make
+        update_cache: yes
+
+
+    - name: run app using makefile
+      command: "make local"

@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  builder:
+    build: ./ansible
+    command: ansible-playbook build.yml -f 10
+    volumes:
+      - ./ansible:/ansible
+      - ./build:/build
+
+  runner:
+    build: ./ansible
+    command: ansible-playbook run.yml -f 10
+    volumes:
+      - ./ansible:/ansible
+      - ./build:/build
+    depends_on:
+      builder:
+        condition: service_completed_successfully
+    ports:
+      - 3000:3000

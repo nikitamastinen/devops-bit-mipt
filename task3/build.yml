@@ -1,0 +1,21 @@
+- name: Build
+  hosts: localhost
+  gather_facts: False
+  vars:
+    - build_dest: /build
+    - version: dev
+  tasks:
+    - name: clone repository
+      git:
+        repo: https://github.com/nikitamastinen/Snakes.git
+        dest: "/Snakes"
+      ignore_errors: yes
+
+    - name: Run Python script with virtual environment
+      shell: pip install --upgrade fastapi starlette
+
+
+    - name: copy
+      copy:
+        src: "Snakes/dist/"
+        dest: "/build"
