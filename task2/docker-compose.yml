@@ -1,0 +1,13 @@
+version: "3"
+services:
+  server:
+    build: server
+    ports:
+      - 3333:3333
+  client:
+    build: client
+    network_mode: host
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
